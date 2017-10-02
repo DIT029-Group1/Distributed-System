@@ -1,6 +1,7 @@
 /**
   * Author:Martin Chukaleski
   */
+package Console;
 import java.util.Scanner;
 //Mock version for our application using the console
 public class Console {

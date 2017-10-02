@@ -2,6 +2,8 @@
   * Author:Martin Chukaleski
   */
 //Class that represents the actor in the sequence diagram
+package Console;
+
 public class Actor {
 	private String aClass;
 	private String name;

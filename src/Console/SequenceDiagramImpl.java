@@ -1,6 +1,7 @@
 /**
   * Author:Martin Chukaleski
   */
+package Console;
 import java.util.ArrayList;
 
 //A class that represents the sequence diagram and has all its data

@@ -2,6 +2,7 @@
   * Author:Martin Chukaleski
   */
 //A class representation for the messages in the sequence diagram
+package Console;
 public class Message {
 	private String label;
 	private Actor actor;

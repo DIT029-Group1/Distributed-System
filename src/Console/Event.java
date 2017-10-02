@@ -2,6 +2,7 @@
   * Author:Martin Chukaleski
   */
 //Class that handles the process events between them
+package Console;
 public class Event {
 	private String node;
 	private Actor from; 

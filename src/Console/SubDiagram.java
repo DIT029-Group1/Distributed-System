@@ -2,6 +2,7 @@
   * Author:Martin Chukaleski
   */
 //Representation of Sub diagrams for example paralel or sequental
+package Console;
 public class SubDiagram {
 	private String diagramType;
 	private SubDiagram diagram; // a subdiagram can also have its own subdiagram like the one in the example the "seq" in "par"
