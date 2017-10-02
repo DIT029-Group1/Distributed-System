@@ -65,7 +65,7 @@ public class sendingAnEmail {
 			// Part two is attachment
 
 			messageBodyPart = new MimeBodyPart();
-			String filename = "C://hello.txt";
+			String filename = "/Users/muratkan/Desktop/hello.txt";
 			DataSource source = new FileDataSource(filename);
 			messageBodyPart.setDataHandler(new DataHandler(source));
 			messageBodyPart.setFileName(filename);
