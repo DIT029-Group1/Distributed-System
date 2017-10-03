@@ -62,4 +62,32 @@ public class ReadJSON {
 		}
 	}
 
+	public Result readJson(){
+
+		Gson gson = new Gson();
+		BufferedReader br = null;
+		Result result = new Result();
+
+		try {
+
+			br = new BufferedReader(new FileReader("testFiles/ourJson.json"));
+			result = gson.fromJson(br, Result.class);
+			if(result!=null){
+				return result;
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null)
+				try {
+					br.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+
+		return result;
+	}
 }
