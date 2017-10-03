@@ -1,3 +1,17 @@
 -module(sd_sup).
 -behaviour(supervisor).
--export([start_link/2, stop/1]).
+-export([start_link/2, init/1]).
+
+start_link(Name, MFA) ->
+	supervisor:start_link(?MODULE, {Name, Limit, MFA}).
+
+init({{Name, MFA}}) ->
+	MaxRestart = 1,
+	MaxTime = 3600,
+	{ok, {{one_for_all, MaxRestart, MaxTime},
+			[{serv, 
+			  {coordinator_serv, start_link, [Name, self(), MFA]},
+			  permanent,
+			  5000, % Shutdown time
+			  worker,
+			  [coordinator_serv]}]}}.
