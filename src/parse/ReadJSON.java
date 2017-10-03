@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
-public class RaedJSON {
+public class ReadJSON {
 
 	public static void main(String[] args) {
 
@@ -20,9 +20,12 @@ public class RaedJSON {
 			Result result = gson.fromJson(br, Result.class);
 			// Example of usage
 			if (result != null) {
+				System.out.println();
 				Meta m = result.getMeta();
 				System.out.println(m.getFormat() + " - " + m.getVersion() + " - " + result.getType());
 				
+				System.out.println();
+				System.out.println("CLASSES:");
 				System.out.println();
 				
 				for(Process p : result.getProcesses()) {
@@ -30,17 +33,19 @@ public class RaedJSON {
 				}
 				
 				System.out.println();
-								
+				System.out.println("DIAGRAM:");
 				System.out.println();
-				
+												
 				for(Content_ c : result.getDiagram().getContent().get(0).getContent()) {
-					System.out.println(c.getFrom() + " -> " + c.getTo() + " - " + c.getNode() + " - \"" + c.getMessage() + "\" ");
+					System.out.println(c.getFrom() + " -> " + c.getTo() + " - " + c.getNode() + " - \"" + c.getMessage().get(0) + " " + c.getMessage().get(1)  + " " + c.getMessage().get(2) + "\" ");
 				}
 				
 				System.out.println();
+				System.out.println("SUB-DIAGRAM");
+				System.out.println();
 				
 				for(Content_ c : result.getDiagram().getContent().get(1).getContent()) {
-					System.out.println(c.getFrom() + " -> " + c.getTo() + " - " + c.getNode() + " - \"" + c.getMessage() + "\" ");
+					System.out.println(c.getFrom() + " -> " + c.getTo() + " - " + c.getNode() + " - \"" + c.getMessage().get(0) + "\" ");
 				}
 			}
 
