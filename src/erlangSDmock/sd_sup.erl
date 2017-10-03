@@ -1,0 +1,3 @@
+-module(sd_sup).
+-behaviour(supervisor).
+-export([start_link/2, stop/1]).

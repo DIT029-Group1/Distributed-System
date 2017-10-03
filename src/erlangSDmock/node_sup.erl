@@ -1,0 +1,2 @@
+-module(node_sup).
+-behaviour(supervisor).
