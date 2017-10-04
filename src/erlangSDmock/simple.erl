@@ -11,7 +11,7 @@ start() ->
 								init()
 							end),
 			register(coordinator, CoordinatorPid),
-			{ok, CoordinatorPid};
+			{ok, CoordinatorPid}; %% start link ?
 		CoordinatorPid -> 
 			io:format("Coordinator is already running!~n"),
 			{ok, CoordinatorPid}
@@ -23,7 +23,8 @@ stop() ->
 		undefined -> 
 			io:format("Coordinator is not running.~n");
 		CoordinatorPid ->
-			CoordinatorPid ! stop
+			CoordinatorPid ! stop,
+			unregister(coordinator)
 		end.
 
 init() -> loop([]).
@@ -49,30 +50,28 @@ loop(SdState) ->
 
 %% Checks if actor has already been spawned, if not spawns it.
 %% whereis does not return correct value
+%% USE spawn/3 IN ORDER TO STORE SHIT
 start_actor(Name) when is_atom(Name) ->
 	case whereis(Name) of
 		undefined ->
 			ActorPid = spawn(fun() ->
-						io:format("~p has been spawned.~n", [Name])
+						io:format("~p has been spawned.~n", [Name]),
+						{ok, self()}
 					end),
-			%% does not register correctly
-			register(Name, ActorPid),
-			{ok, ActorPid};
-		ActorPid -> 
-			io:format("~p has already been spawned.~n", [Name]),
-			{ok, ActorPid}
+			io:format("~p pid: ~p~n", [Name, ActorPid]),
+			Name;
+		_ -> 
+			io:format("~p has already been spawned.~n", [Name])
 	end;
 start_actor(_) ->
 	io:format("Invalid actor name!~n").
 
-%% Use unregister/1
 stop_actor(Name) when is_atom(Name) ->
 	case whereis(Name) of
 		undefined ->
 			io:format("Actor is not running.~n");
 		ActorPid ->
-			exit(ActorPid, normal),
-			unregister(Name)
+			exit(ActorPid, normal)
 	end;
 stop_actor(_) ->
 	io:format("Invalid actor name!~n").
@@ -89,5 +88,3 @@ read() ->
 	receive
 		{read_reply, State} -> State
 	end.
-
-
