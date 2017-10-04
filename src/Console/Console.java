@@ -1,8 +1,8 @@
 /**
-  * Author:Martin Chukaleski
+  * Author:Martin Chukaleski 02/10/2017
   */
-package Console;
 import java.util.Scanner;
+import sendEmail.*;
 //Mock version for our application using the console
 public class Console {
 
@@ -25,21 +25,25 @@ public class Console {
 		case "1":
 			System.out.println("Parsing JSON file");
 			System.out.println("...........................................");
+			//Call your function here
 			goBack();
 			break;
 		case "2":
 			System.out.println("Starting simulation");
 			System.out.println("...........................................");
+			//Call your function here
 			goBack();
 			break;
 		case "3":
 			System.out.println("Recording and saving simulation");
 			System.out.println("...........................................");
+			//Call your function here
 			goBack();
 			break;
 		case "4":
-			System.out.println("Sending simulation ");
 			System.out.println("...........................................");
+			//Call your function here
+			//sendEmail();
 			goBack();
 			break;
 		case "quit":
@@ -54,11 +58,14 @@ public class Console {
 
 	public static void print() {
 		System.out.println("Welcome to our super fancy console of our first prototype");
+		System.out.println("-----------------------------------------------------------");
 		System.out.println("Press 1: TO parse JSON file ");
 		System.out.println("Press 2: TO start simulation ");
 		System.out.println("Press 3: TO record and save the simulation");
-		System.out.println("Press 4: TO send the saved simulation");
-		System.out.println("Type quit: TO exit the application\n");
+		System.out.println("Press 4: TO send the saved simulation to an email address");
+		System.out.println("Type quit: TO exit the application");
+		System.out.println("-----------------------------------------------------------");
+		System.out.println("Type here: ");
 	}
 
 	public static void quit() {
@@ -87,6 +94,15 @@ public class Console {
 			goBack();
 		}
 		
-		
+	}
+	
+	public static void sendEmail(){
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Insert the file location SHOULD BE AUTOMATIC AFTER SIMULATION FILE SHOULD BE SAVED IN APP\n");
+		String path = scan.nextLine();
+		System.out.println("Type your email address:\n");
+		String email = scan.nextLine();
+		System.out.println("Sending the file............\n");
+		sendingAnEmail send = new sendingAnEmail(path,email);
 	}
 }
