@@ -1,11 +1,18 @@
+package Console;
+
 /**
   * Author:Martin Chukaleski 02/10/2017
   */
 import java.util.Scanner;
+
+import parse.ReadJSON;
 import sendEmail.*;
 //Mock version for our application using the console
 public class Console {
-
+	
+	private static ReadJSON rj = new ReadJSON();
+	
+	
 	public static void main(String[] args) {
 		console();
 	}
@@ -18,6 +25,15 @@ public class Console {
 		
 
 	}
+	public static void email(){
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Type your email address:\n");
+		String email = scan.nextLine();
+		System.out.println("Sending the file............\n");
+		sendingAnEmail mail = new sendingAnEmail(email);
+
+	}
+	
 	public static void chooseOption(String option){
 		Scanner scan = new Scanner(System.in);
 		
@@ -25,7 +41,8 @@ public class Console {
 		case "1":
 			System.out.println("Parsing JSON file");
 			System.out.println("...........................................");
-			//Call your function here
+			rj.read();
+			System.out.println("...........................................");
 			goBack();
 			break;
 		case "2":
@@ -43,7 +60,7 @@ public class Console {
 		case "4":
 			System.out.println("...........................................");
 			//Call your function here
-			//sendEmail();
+			email();
 			goBack();
 			break;
 		case "quit":
@@ -96,13 +113,4 @@ public class Console {
 		
 	}
 	
-	public static void sendEmail(){
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Insert the file location SHOULD BE AUTOMATIC AFTER SIMULATION FILE SHOULD BE SAVED IN APP\n");
-		String path = scan.nextLine();
-		System.out.println("Type your email address:\n");
-		String email = scan.nextLine();
-		System.out.println("Sending the file............\n");
-		sendingAnEmail send = new sendingAnEmail(path,email);
-	}
 }

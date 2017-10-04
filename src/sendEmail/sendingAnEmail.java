@@ -26,9 +26,9 @@ public class sendingAnEmail {
 	/**
 	 * A constructor that uses the user's e-mail and the txt file.
 	 */
-	public sendingAnEmail(String file, String email) {
+	public sendingAnEmail( String email) {
 		this.email = email;
-		this.file = file;
+//		this.file = file;
 
 		final String username = "dit029management";
 		final String password = "dit12345";
@@ -91,7 +91,7 @@ public class sendingAnEmail {
 	    Scanner in = new Scanner(System.in);
 		System.out.println("Please enter your email: ");
 	    email = in.nextLine();
-	    sendingAnEmail nnew = new sendingAnEmail(file, email);
+	    sendingAnEmail nnew = new sendingAnEmail( email);
 	    
 	}
 }

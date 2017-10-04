@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 
 public class ReadJSON {
 
-	public static void main(String[] args) {
+	public void read() {
 
 		Gson gson = new Gson();
 		BufferedReader br = null;
