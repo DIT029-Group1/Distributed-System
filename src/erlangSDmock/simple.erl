@@ -1,6 +1,8 @@
 -module(simple).
 %-behaviour(gen_server).
--export([start/0, stop/0, read/0, sendMsg/3, start_actor/1, stop_actor/1]).
+-export([start/0, stop/0, read/0, send_msg/3, start_actor/1, stop_actor/1]).
+-export([start_actor_simple/0]).
+%% User record to store values ?
 
 %% Starts the coordinator server process.
 start() ->
@@ -17,7 +19,7 @@ start() ->
 			{ok, CoordinatorPid}
 	end.
 
-%% Stops the coordinator server process.
+%% Stops and unregisters the coordinator server process.
 stop() ->
 	case whereis(coordinator) of
 		undefined -> 
@@ -48,9 +50,28 @@ loop(SdState) ->
 			loop(SdState)
 	end.
 
+%% Bind the actor process pid returned from spawn/1 to a variable,
+%% which will be used to identify the actor when sending messages.
+start_actor_simple() ->
+	spawn(fun() -> io:format("Actor has been spawned.~n") end).
+
+%% Sends a msg to the coordinator from one actor to another
+%% through the coordinator.
+send_msg(ActorFrom, Msg, ActorTo) ->
+	whereis(coordinator) ! {ActorFrom, Msg, ActorTo},
+	hd(read()).
+
+%% Returns the state of the server.
+read() -> 
+	whereis(coordinator) ! {read, self()},
+	receive
+		{read_reply, State} -> State
+	end.
+
+%%% WORK IN PROGRESS.
+
 %% Checks if actor has already been spawned, if not spawns it.
 %% whereis does not return correct value
-%% USE spawn/3 IN ORDER TO STORE SHIT
 start_actor(Name) when is_atom(Name) ->
 	case whereis(Name) of
 		undefined ->
@@ -75,16 +96,3 @@ stop_actor(Name) when is_atom(Name) ->
 	end;
 stop_actor(_) ->
 	io:format("Invalid actor name!~n").
-
-%% Sends a msg to the coordinator from one actor to another
-%% through the coordinator.
-sendMsg(ActorFrom, Msg, ActorTo) ->
-	whereis(coordinator) ! {ActorFrom, Msg, ActorTo},
-	hd(read()).
-
-%% Returns the state of the server.
-read() -> 
-	whereis(coordinator) ! {read, self()},
-	receive
-		{read_reply, State} -> State
-	end.
