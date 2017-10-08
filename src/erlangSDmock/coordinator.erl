@@ -1,4 +1,4 @@
--module(simple).
+-module(coordinator).
 %-behaviour(gen_server).
 -export([start/0, stop/0, read/0, send_msg/3, start_actor/1, stop_actor/1]).
 -export([start_actor_simple/0]).
