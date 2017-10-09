@@ -33,8 +33,9 @@ stop() ->
 read() ->
 	gen_server:call(?COORDINATOR, read).
 
+%% CHANGE TO CALL: ActorFrom and ActorTo are stored as "ok" instead as their pids.
 start_actor() ->
-	gen_server:cast(?COORDINATOR, start_actor).
+	gen_server:call(?COORDINATOR, start_actor).
 
 send_msg(ActorFrom, Msg, ActorTo) ->
 	gen_server:call(?COORDINATOR, {send_msg, ActorFrom, Msg, ActorTo}).
@@ -44,22 +45,31 @@ init([]) ->
 	{ok, #state{}}.
 
 handle_call(read, _From, State = #state{sequence=Seq}) ->
-	%% Not sure aboute this reply!
 	{reply, Seq, State};
 
 handle_call({send_msg, ActorFrom, Msg, ActorTo}, _From, State = #state{sequence=Seq}) ->
-	{reply, {ActorFrom, Msg, ActorTo}, State#state{sequence=[{ActorFrom, Msg, ActorTo}|Seq]}}.
+	{reply, {ActorFrom, Msg, ActorTo}, State#state{sequence=[{ActorFrom, Msg, ActorTo}|Seq]}};
 
-handle_cast(start_actor, State = #state{actors = Actors, numActors = N}) ->
+handle_call(start_actor, _From, State = #state{actors = Actors, numActors = N}) ->
 %	{ok, Pid} = supervisor:start_child() ??
 	Pid = spawn(fun() -> io:format("Actor ~p has been spawned.~n", [self()]) end),
-	{noreply, State#state{actors=[Pid|Actors], numActors=N+1}}.
+	NewState = State#state{actors=[Pid|Actors], numActors=N+1},
+	{reply, Pid, NewState};
 
-
-%% Does nothing, required by gen_server.
-handle_info(_Info, State) ->
+handle_call(_Action, _From, State) ->
+	io:format("Unexpected action: ~p~n", [_Action]),
 	{noreply, State}.
 
+handle_cast(_Action, State) ->
+	io:format("Unexpected action: ~p~n", [_Action]),
+	{noreply, State}.
+
+
+handle_info(_Action, State) ->
+	io:format("Unexpected action: ~p~n", [_Action]),
+	{noreply, State}.
+
+%% Doe nothing, needed for gen_server.
 code_change(_OldVsn, State, _Extra) ->
 	{ok, State}.
 
