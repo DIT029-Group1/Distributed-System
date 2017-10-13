@@ -1,6 +1,6 @@
 %% @author Martin Chukaleski
 
--module(starter).
+-module(sup_starter).
 
 -export([start_sup_ch/1,start_root/0,loop/1,start/0,read_messages/1]).
 
