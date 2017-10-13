@@ -1,3 +1,4 @@
+%% @author Martin Chukaleski
 -module(root_sup).
 -behaviour(supervisor).
 -export([start_link/0]).

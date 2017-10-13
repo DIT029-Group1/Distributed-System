@@ -1,8 +1,8 @@
-%% @author Fujitsu
-%% @doc @todo Add description to starter.
+%% @author Martin Chukaleski
+
 -module(starter).
 
--export([start_sup_ch/1,start_root/0,loop/1,start/0]).
+-export([start_sup_ch/1,start_root/0,loop/1,start/0,read_messages/1]).
 
 
 start_root() ->
@@ -24,7 +24,19 @@ start_sup_ch(Name)->
 	%receive
 		%{start_child_reply,Pid,ChildName}  -> {ok,ChildName}
 	%end.
-	
+
+% Read through a list of messages that are sent from java script to erlang example for testing
+%	starter:read_messages([{node1,msgrequest,node2},{node2,msgrequest,node3},{node3,msgrequest,node4},{node4,msgrequest,node5},{node5,msgrequest,node6}]).
+read_messages([]) ->  no_more_msg;
+read_messages([{From,Msg,To}|Xs]) ->
+		io:format("~p -> ~p -> ~p ~n",[From,Msg,To]), timer:sleep(700), read_messages(Xs).
+
+
+server_read_messages(Server,[]) ->  no_more_msg;
+server_read_messages(Server,[{From,Msg,To}|Xs]) -> 
+		Server ! {From,Msg,To},timer:sleep(700), read_messages(Xs).
+
+
 
 %	{ok, RS} = root_sup:start_link().
 %	{ok, RSchild1} = supervisor:start_child(RS, []).
