@@ -95,8 +95,7 @@ li a {
 	transition: all .2s ease-in-out;
     display: block;
 	color: white;
-	/**padding: 14px 16px;**/
-    text-align: center;
+	text-align: center;
     text-decoration: none;
     
 }
@@ -128,13 +127,13 @@ li a:hover {
 	}
 	
 	.container .nav ul li a{
-		 width:100%;
-        font-size:4.5px;
+		 float: left;
+        font-size:2.8px;
 		 
 		
 	}
 	.container .nav #send {
-    float: right;
+        float: right;
 		
 }
 }
