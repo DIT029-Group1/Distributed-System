@@ -2,8 +2,19 @@
 
 -module(starter).
 
--export([start_sup_ch/1,start_root/0,loop/1,start/0,read_messages/1,start_chsup_ch/2]).
+-export([start_sup_ch/1,start_root/0,loop/1,start/0,read_messages/1,start_chsup_ch/2,spawn_actors/2,test/0,connect/0,send/2]).
 
+connect() ->
+	{ok,S} = gen_tcp:connect("localhost",8800,[binary,{packet,0}]),{ok,S}.
+send(Socket,Msg) -> gen_tcp:send(Socket, Msg).
+	
+test () ->
+	starter:start_root(),
+	starter:start_sup_ch(sd_sup),
+	starter:start_chsup_ch(child2,sd_sup).
+	% 	Actors = [a1,a2,a3,a4,a5].
+	% 	starter:spawn_actors(whereis(child2),Actors).
+	
 
 start_root() ->
 	%	starter:start_root().
@@ -29,10 +40,10 @@ start_chsup_ch(Name,SupervisorPID)->
 	
 
 % Read through a list of messages that are sent from java script to erlang example for testing
-%	starter:read_messages([{node1,msgrequest,node2},{node2,msgrequest,node3},{node3,msgrequest,node4},{node4,msgrequest,node5},{node5,msgrequest,node6}]).
+%	starter:read_messages([{node1,fwd,node2,msgrequest},{node2,fwd,node3,msgrequest},{node3,fwd,node4,msgrequest},{node4,fwd,node5,msgrequest},{node5,fwd,node6,msgrequest}]).
 read_messages([]) ->  no_more_msg;
-read_messages([{From,Msg,To}|Xs]) ->
-		io:format("~p -> ~p -> ~p ~n",[From,Msg,To]), timer:sleep(700), read_messages(Xs).
+read_messages([{From,Fwd,To,Msg}|Xs]) ->
+		io:format("~p, ~p, ~p, ~p ~n",[From,Fwd,To,Msg]), timer:sleep(700), read_messages(Xs).
 
 
 server_read_messages(Server,[]) ->  Server ! no_more_msg;
@@ -40,7 +51,11 @@ server_read_messages(Server,[{From,Msg,To}|Xs]) -> Server ! {{From,Msg,To},self(
 		receive 
 				{{From,Msg,To},Pid} -> {From,Msg,To} % call function to send it back to java script
 		end,
-   server_read_messages(Server,Xs).												 
+   server_read_messages(Server,Xs).		
+
+%%% Pid is the id of the child sd_simulator_OTP
+spawn_actors(Pid,[]) -> no_more_actors;
+spawn_actors(Pid,[Actor|Ys]) -> sup:start_actor(Pid),spawn_actors(Pid, Ys).
 	
 
 
@@ -50,32 +65,6 @@ server_read_messages(Server,[{From,Msg,To}|Xs]) -> Server ! {{From,Msg,To},self(
 %	{ok, RSchild2} = supervisor:start_child(RS, []).
 %	{ok, SChild1} = supervisor:start_child(RSchild1, []).
 %	{ok, SChild2} = supervisor:start_child(RSchild, []).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THIS PART IS WORK IN PROGRESS
-start() ->
-	start_root(),
-	case whereis(root_server) of
-		undefined ->
-			P = spawn(fun () ->
-				io:format("The server is running! ~n"),
-							loop([])
-					  end),
-			register(root_server,P),
-			{ok,P};
-		P -> {ok,P}
-	end.
-
-loop(L) ->
-	io:format("Current state: ~p~n",[L]),
-		receive 
-		{start_child,Pid,Name} -> {ok, ChildPid} = supervisor:start_child(whereis(root_sup), []),
-								  register(Name,ChildPid),
-			Pid ! {start_child_reply,self(),Name},
-			loop([Name|L])
-		end.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
