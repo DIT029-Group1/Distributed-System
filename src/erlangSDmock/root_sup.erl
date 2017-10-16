@@ -11,7 +11,7 @@ start_link() ->
 			io:format("Root supervisor is running ~n"),
 			{ok, Pid}.
 		
-   
+  
 
 init(_Args) ->
 	%simple one for one strategy meaningn that when the supervisor is started no children are started they are all  added dinamicly 
