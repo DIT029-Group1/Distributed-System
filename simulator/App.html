@@ -3,7 +3,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sequence diagram simulator</title>
   <link rel="stylesheet" href="design.css" type="text/css" />
-  <script type="text/javascript" src="./js/parse.js"></script>
+
 </head>
 
 <body>
@@ -17,25 +17,30 @@
     <div class="container">
         <div class="nav">
     <ul>
-            
-  <li><a href="#upload">Upload</a></li>
-  <li><a href="#start">Start</a></li>
-  <li><a href="#pause">Pause</a></li>
-  <li><a href="#stop">Stop</a></li>
-  <li><a href="#reset">Reset</a></li>
-  <li><a href="#capture">Capture</a></li>
-  <li><a href="#record">Record</a></li>
-  <li id='send'><a href="#send">Send</a></li>
-  
+
+  <li><a href="#">Upload</a></li>
+  <li><a href="#">Start</a></li>
+  <li><a href="#">Pause</a></li>
+  <li><a href="#">Stop</a></li>
+  <li><a href="#">Reset</a></li>
+  <li><a href="#">Capture</a></li>
+  <li><a href="#">Record</a></li>
+  <li id='send'><a href="#">Send</a></li>
+
 </ul>
     </div>
-        <div class="sd">sequence diagram here</div>
+        <div class="sd">
+            <canvas id="SDCanvas"></canvas>
+        </div>
     </div>
     <div class="right">
         <div class="device">device list:</div>
     </div>
 
   <div class="footer">console log here</div>
+  <script type="text/javascript" src="./js/parse.js"></script>
+  <script src="./js/simulator.js"></script>
+
 
 </body>
 </html>

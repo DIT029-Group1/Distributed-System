@@ -1,39 +1,36 @@
 var oReq = new XMLHttpRequest();
 
-oReq.open("GET", "data.json", true);
+var nodes = [];
 
-oReq.onreadystatechange = function(){
-    if(oReq.readyState == 4){
-        if (oReq.status == 200 || oReq.status == 0){
-            var json = oReq.responseText;
-            
-            var pObj = JSON.parse(json);
+oReq.open("GET", "data.json", false);
+oReq.send();
 
-            for(var e = 1; e < pObj.processes.length; e++){
-                document.getElementById("nCount").innerHTML += "<br><span>" + pObj.processes[e].name + ":" + pObj.processes[e].class + "</span>";
-            }
 
-            document.getElementById("nCount").innerHTML += "<br><span>" + pObj.processes[0].name + ":" + pObj.processes[0].class + "</span>";
+var json = oReq.responseText;
+var pObj = JSON.parse(json);
 
-            var seqCount = 0;
-            var nodeCount = 0;
-
-            for (i3 in pObj.diagram.content){
-                var msgCount = 0;
-                seqCount++;
-                
-                for (i2 in pObj.diagram.content[i3].content){
-
-                    msgCount++;
-                    nodeCount++;
-
-                }
-                document.getElementById("mCount" + seqCount).innerHTML = pObj.diagram.content[i3].node  + seqCount;
-                document.getElementById("mCount" + seqCount).innerHTML += "<br><span>Total messages: " + msgCount + "</span>";
-            }
-        }
-    }
+for(var i = 1; i < pObj.processes.length; i++){
+    document.getElementById("nCount").innerHTML += "<br><span>" + pObj.processes[i].name + ":" + pObj.processes[i].class + "</span>";
+    nodes.push(pObj.processes[i].name + ":" + pObj.processes[i].class);
 }
 
-oReq.send();
+document.getElementById("nCount").innerHTML += "<br><span>" + pObj.processes[0].name + ":" + pObj.processes[0].class + "</span>";
+nodes.push(pObj.processes[0].name + ":" + pObj.processes[0].class);
+
+var seqCount = 0;
+var nodeCount = 0;
+
+for (i3 in pObj.diagram.content){
+    var msgCount = 0;
+    seqCount++;
+
+    for (i2 in pObj.diagram.content[i3].content){
+
+        msgCount++;
+        nodeCount++;
+
+    }
+    document.getElementById("mCount" + seqCount).innerHTML = pObj.diagram.content[i3].node  + seqCount;
+    document.getElementById("mCount" + seqCount).innerHTML += "<br><span>Total messages: " + msgCount + "</span>";
+}
 
