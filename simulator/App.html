@@ -1,21 +1,22 @@
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Sequence diagram simulator</title>
-    <link rel="stylesheet" href="design.css" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sequence diagram simulator</title>
+  <link rel="stylesheet" href="design.css" type="text/css" />
+  <script type="text/javascript" src="./js/parse.js"></script>
 </head>
 
 <body>
-	<div class="header">Sequence diagram simulator</div>
+  <div class="header">Sequence diagram simulator</div>
 
     <div class="left">
-        <div class="content1">json file recap</div>
-        <div class="content2">json file recap 2</div>
-        <div class="content3">name of nodes</div>
+        <div class="content1" id="mCount1">json file recap</div>
+        <div class="content2" id="mCount2">json file recap 2</div>
+        <div class="content3" id="nCount">name of nodes</div>
     </div>
     <div class="container">
         <div class="nav">
-		<ul>
+    <ul>
             
   <li><a href="#upload">Upload</a></li>
   <li><a href="#start">Start</a></li>
@@ -27,14 +28,14 @@
   <li id='send'><a href="#send">Send</a></li>
   
 </ul>
-		</div>
+    </div>
         <div class="sd">sequence diagram here</div>
     </div>
     <div class="right">
         <div class="device">device list:</div>
     </div>
 
-	<div class="footer">console log here</div>
+  <div class="footer">console log here</div>
 
 </body>
 </html>
