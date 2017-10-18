@@ -136,7 +136,13 @@ function animate() {
                             to = nodePosX[k].x;
                         }
                     }
-                    c.fillText(msg.substr(msg.indexOf(', ') + 2), (from + to)/2 - 50, Dy - 10);
+
+                    if(element[1] != "mmk") {
+                        c.fillText(msg.substr(msg.indexOf(', ') + 2), (from + to) / 2 - 50, Dy - 10);
+                    } else {
+                        c.fillText(element[3], (from + to) / 2, Dy - 10);
+                    }
+
 
                     c.beginPath();
                     c.lineWidth="5";
