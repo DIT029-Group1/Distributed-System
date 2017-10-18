@@ -5,3 +5,4 @@ src/other/
 /out/
 /.idea/
 *.iml
+*.beam 
