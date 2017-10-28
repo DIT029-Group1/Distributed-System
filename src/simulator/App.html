@@ -7,35 +7,37 @@
 </head>
 
 <body>
-  <div class="header">SEQUENCE DIAGRAM SIMULATOR</div>
+  <div class="header">Sequence diagram simulator</div>
 
     <div class="left">
-        <div class="content1" id="mCount1">JSON File Recap</div>
-        <div class="content2" id="mCount2">JSON File Recap</div>
-        <div class="content3" id="nCount">Name of Nodes</div>
+        <div class="content1" id="mCount1">json file recap</div>
+        <div class="content2" id="mCount2">json file recap 2</div>
+        <div class="content3" id="nCount">name of nodes</div>
     </div>
-      <div class="container">
-          <div class="nav">
-              <ul>
-                    <li><div class="upload"></div></li>
-                    <li><div class="start"></div></li>
-                    <li><div class="pause"></div></li>
-                    <li><div class="stopReset"></div></li>
-                    <li><div class="capture"></div></li>
-                    <li><div class="send"></div></li>
+    <div class="container">
+        <div class="nav">
+    <ul>
 
-              </ul>
-        </div>
+  <li><a href="#">Upload</a></li>
+  <li><a href="#">Start</a></li>
+  <li><a href="#">Pause</a></li>
+  <li><a href="#">Stop</a></li>
+  <li><a href="#">Reset</a></li>
+  <li><a href="#">Capture</a></li>
+  <li><a href="#">Record</a></li>
+  <li id='send'><a href="#">Send</a></li>
+
+</ul>
+    </div>
         <div class="sd">
             <canvas id="SDCanvas"></canvas>
         </div>
     </div>
     <div class="right">
-        <div class="device">Device List:</div>
+        <div class="device">device list:</div>
     </div>
 
   <div class="footer">console log here</div>
-  <footer class="foot">Copyright &copy; 2017 GROUP1</footer>
   <script type="text/javascript" src="./js/parse.js"></script>
   <script src="./js/simulator.js"></script>
 
