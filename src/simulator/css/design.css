@@ -1,51 +1,66 @@
+@import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+
+
 * {
 	margin: 0;
 	padding: 0;
 	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 	
 }
+body{
+ 	background-image: url('../img/backround1.png');
+ 	background-size: cover;
+ 	background-repeat: no-repeat;
+}
 
 .header{
     height: 5%;
-	margin-bottom: 1%;
+	margin-bottom: 5%;
+	margin-right: 2%;
 	text-align: center;
 	line-height: 200%;
-    font-size: 150%;
+    font-size: 40px;
+    color: #FFFFFF;
+    opacity: 0.9;
 }
 
 .left{
 	margin-left: 1%;
 	margin-right: 1%;
 	margin-bottom: 1%;
+	margin-top: 5%;
 	width: 20%;
 	height: auto;
 	float: left;
 }
 
 .left .content1, .content2, .content3 {
-	background-color: #0C0D0B;
-	margin: 1%;
-	width: 98%;
+	border-radius: 25px;
+    border: 2px solid #D3D3D3;
+	//background-color: #0C0D0B;
+	margin: 2%;
+	width: 70%;
 	height: auto;
-	color: #00FF00;
-	padding: 5px 5px 5px 10px;
+	color: #FFFFFF;
+	padding: 5px 5px 5px 5px;
+	opacity: 0.9;
+	text-align: center;
 }
 
+
 .container{
-	width: 56%;
+	color:#D3D3D3;
+	width: 70%;
 	margin-bottom: 1%;
 	height: auto;
 	float: left;
 }
 
-.container .nav {
-	background-color: gray;
-	width: 100%;
-}
 
 .container .nav {
+
+	width: 100%;
 	height: 10%;
-	background-color: #E7E7E7;
 	color: white;
 }
 
@@ -56,20 +71,24 @@
 
 .right{
 	margin-left: 1%;
-	margin-right: 1%;
-	width: 20%;
+	margin-right: 2%;
+	margin-top: 0%;
+	width: 15%;
 	height: auto;
 	float: right;
 	margin-bottom: 1%;
+	text-align: center;
 }
 
 .right .device {
-	background-color: #0C0D0B;
 	margin: 1%;
 	width: 98%;
 	height: auto;
-	color: #00FF00;
-	padding: 5px 5px 5px 10px;
+	padding: 5px 5px 5px 5px;
+	border-radius: 25px;
+    border: 2px solid #D3D3D3;
+	color: #FFFFFF;
+	opacity: 0.9;
 }
 
 .footer{
@@ -82,10 +101,10 @@
 
 ul {
     list-style-type: none;
+    margin-left: 0%;
 	margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: black;
 	   
 }
 
@@ -108,15 +127,200 @@ li a:hover {
 	background-color:  #E7E7E7;
 	 transform: scale(1.3); 
 	 border-radius: 3px;
-	
-    
 }
 
-.container .nav #send {
+.container .nav {
 	float:right;
 	margin-right:20;
 	
 	
+}
+.nac{
+	backround color: #D3D3D3;
+	backround color: 
+}
+
+.foot {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:40px;   /* Height of the footer */
+   color: #FFFFFF;
+   margin: auto;
+}
+.upload {
+  width: 120px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  color: #fff;
+}
+.upload:after, .upload:before {
+  content: 'UPLOAD';
+  position: absolute;
+  left: 60%;
+  top: 80%;
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+}
+.upload:hover:after {
+  top: -50%;
+}
+.upload:before {
+  font-family: 'Ionicons';
+  content: '\f3b6';
+  font-size: 40px;
+  top: 190%;
+}
+.upload:hover:before {
+  top: 50%;
+}
+
+.start {
+  width: 90px;
+  height: 50px;  
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  cursor: pointer;
+  color: #fff;
+}
+.start:after, .start:before {
+  content: 'START';
+  position: absolute;
+  left: 50%;
+  top: 80%;
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+}
+.start:hover:after {
+  top: -50%;
+}
+.start:before {
+  font-family: 'Ionicons';
+  content: '\f488';
+  font-size: 40px;
+  top: 190%;
+}
+.start:hover:before {
+  top: 50%;
+}
+
+.pause {
+  width: 100px;
+  height: 50px;  
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  cursor: pointer;
+  color: #fff;
+}
+.pause:after, .pause:before {
+  content: 'PAUSE';
+  position: absolute;
+  left: 60%;
+  top: 80%;
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+}
+.pause:hover:after {
+  top: -50%;
+}
+.pause:before {
+  font-family: 'Ionicons';
+  content: '\f210';
+  font-size: 40px;
+  top: 190%;
+}
+.pause:hover:before {
+  top: 50%;
+}
+
+.stopReset {
+  width: 90px;
+  height: 50px;  
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  cursor: pointer;
+  color: #fff;
+}
+.stopReset:after, .stopReset:before {
+  content: 'STOP';
+  position: absolute;
+  left: 60%;
+  top: 80%;
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+}
+.stopReset:hover:after {
+  top: -50%;
+}
+.stopReset:before {
+  font-family: 'Ionicons';
+  content: '\f24f';
+  font-size: 40px;
+  top: 190%;
+}
+.stopReset:hover:before {
+  top: 50%;
+}
+
+.capture {
+  width: 100px;
+  height: 50px;  
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  cursor: pointer;
+  color: #fff;
+}
+.capture:after, .capture:before {
+  content: 'SNAP';
+  position: absolute;
+  left: 70%;
+  top: 80%;
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+}
+.capture:hover:after {
+  top: -50%;
+}
+.capture:before {
+  font-family: 'Ionicons';
+  content: '\f2d3';
+  font-size: 40px;
+  top: 190%;
+}
+.capture:hover:before {
+  top: 50%;
+}
+
+.send {
+  width: 90px;
+  height: 50px;  
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  cursor: pointer;
+  color: #fff;
+}
+.send:after, .send:before {
+  content: 'SEND';
+  position: absolute;
+  left: 70%;
+  top: 80%;
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+}
+.send:hover:after {
+  top: -50%;
+}
+.send:before {
+  font-family: 'Ionicons';
+  content: '\f2f6';
+  font-size: 40px;
+  top: 190%;
+}
+.send:hover:before {
+  top: 50%;
 }
 
 @media only screen and (max-width:768px) and  (max-width:1080px) and (max-width:1536px) {
@@ -139,6 +343,6 @@ li a:hover {
 	.container .nav #send {
         float: right;
 		
-}
+	}
 }
 
