@@ -24,7 +24,7 @@
       <div class="container">
           <div id="nav">
               <ul>
-                    <li><div class="upload" onclick="jsFunction"></div></li>
+                    <li><div class="upload" onclick="show()"></div></li>
                     <li><div class="start" onclick="jsFunction"></div></li>
                     <li><div class="pause" onclick="jsFunction"></div></li>
                     <li><div class="stopReset" onclick="jsFunction"></div></li>
@@ -34,12 +34,13 @@
               </ul>
         </div>
         <div id="sd">
-
-              <form action="upload.php" method="POST">
-                <input type="file" multiple>
-                <p id="text">Drag your files here or click in this area.</p>
-                <button type="submit">Upload</button>
-              </form>
+              <div id="dragAndDrop">
+                <form action="upload.php" method="POST">
+                  <input type="file" multiple>
+                  <p id="text">Drag your files here or click in this area.</p>
+                  <button type="submit">Upload</button>
+                </form>
+              </div>
   
             <canvas id="SDCanvas"></canvas>
         </div>
@@ -52,6 +53,8 @@
   <footer class="footer">Copyright &copy; 2017 GROUP1</footer>
   <script type="text/javascript" src="./js/parse.js"></script>
   <script src="./js/simulator.js"></script>
+  <script src="./js/hideDrag.js"></script>
+
 
 
 </body>
