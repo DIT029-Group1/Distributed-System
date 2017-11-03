@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" />
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="js/screenShot.js"></script>
 
 </head>
 <body>
@@ -41,7 +42,7 @@
                         <div class="stopReset" onclick="document.getElementById('<%= btnRestart.ClientID %>').click()"></div>
                     </li>
                     <li>
-                        <div class="capture"></div>
+                        <div class="capture" onclick="screenShot()"></div>
                     </li>
                     <li>
                         <div class="send"></div>
