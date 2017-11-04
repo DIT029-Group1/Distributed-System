@@ -16,6 +16,9 @@
 
     <form id="form1" runat="server">
 
+        <asp:FileUpload ID="FileUploadControl" runat="server" />
+		<asp:Button runat="server" ID="UploadButton" style="display:none" Text="Upload" OnClick="uploadFile" />
+
         <div class="header">SEQUENCE DIAGRAM SIMULATOR</div>
         <div class="left">
             <div class="content1" id="mCount1"></div>
@@ -30,7 +33,7 @@
             <div class="nav">
                 <ul>
                     <li>
-                        <div class="upload"></div>
+                        <div class="upload" onclick="document.getElementById('<%= UploadButton.ClientID %>').click()"></div>
                     </li>
                     <li>
                         <div class="start" onclick="document.getElementById('<%= btnSend.ClientID %>').click()"></div>

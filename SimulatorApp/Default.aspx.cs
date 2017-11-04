@@ -36,6 +36,24 @@ public partial class _Default : System.Web.UI.Page
         t.sendMessage("start");
     }
 
+    protected void uploadFile(object sender, EventArgs e)
+    {
+        if (FileUploadControl.HasFile)
+        {
+            try
+            {
+                string filename = Path.GetFileName(FileUploadControl.FileName);
+                FileUploadControl.SaveAs(Server.MapPath("~/") + filename);
+            }
+            catch (Exception ex)
+            {
+                string errorMsg = "Error";
+                errorMsg += ex.Message;
+                throw new Exception(errorMsg);
+            }
+        }
+    }
+
     protected void restartProcess(object sender, EventArgs e)
     {
         Process[] processlist = Process.GetProcesses();
