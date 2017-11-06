@@ -15,6 +15,7 @@ public partial class _Default : System.Web.UI.Page
 {
     private UserIP userIP = new UserIP();
     private TcpToErlang t = null;
+    private int copyNumber = 1;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -36,15 +37,56 @@ public partial class _Default : System.Web.UI.Page
         t.sendMessage("start");
     }
 
+    protected String getFolderNameFromIp(String ip)
+    {
+        int hashedIP = ip.GetHashCode();
+        string folderName = hashedIP.ToString();
+        return folderName;
+
+    }
+
     protected void uploadFile(object sender, EventArgs e)
     {
-        if (FileUploadControl.HasFile)
+        if (FileUpload.HasFile)
         {
             try
             {
-                string filename = Path.GetFileName(FileUploadControl.FileName);
-                FileUploadControl.SaveAs(Server.MapPath("~/") + filename);
+                string filename = Path.GetFileName(FileUpload.FileName);
+                string extension = Path.GetExtension(filename);
+
+                // if (extension.ToLower() == ".json") {
+                string ip = "192.1.45.189";
+                string folderName = getFolderNameFromIp(ip);
+                string folderPath = Server.MapPath("Uploads");
+
+                //Checking if a directory for that user exists if not create one
+                if (!Directory.Exists(folderName))
+                {
+                    Directory.CreateDirectory(new Uri(folderPath + @"\" + folderName).LocalPath);
+                }
+
+                string curFile = Server.MapPath("~/Uploads/" + folderName + "/") + filename;
+                bool state = File.Exists(curFile) ? true : false;
+
+                if (state)
+                {
+                    string nameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
+                    string fileNum = Convert.ToString(copyNumber);
+                    string filecopy = string.Concat(nameWithoutExtension, "-Copy") + fileNum;
+                    FileUpload.SaveAs(Server.MapPath("~/Uploads/" + folderName + "/") + filecopy + extension);
+                    copyNumber++;
+                }
+                else
+                {
+                    FileUpload.SaveAs(Server.MapPath("~/Uploads/" + folderName + "/") + filename);
+                }
             }
+            /**else
+            {
+                //display message
+            }
+        }**/
+
             catch (Exception ex)
             {
                 string errorMsg = "Error";
