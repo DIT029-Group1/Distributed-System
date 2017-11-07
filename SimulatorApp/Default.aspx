@@ -48,7 +48,7 @@
                         <div class="capture" onclick="screenShot()"></div>
                     </li>
                     <li>
-                        <div class="send"></div>
+                        <div class="send" runat="server" onclick="popUp('E-mail.aspx')"></div>
                     </li>
                 </ul>
             </div>
@@ -82,6 +82,7 @@
         <div class="footer">console log here</div>
         <script type="text/javascript" src="js/parse.js"></script>
         <script src="js/simulator.js"></script>
+        <script src="js/popUp.js"></script>
 
     </form>
 
