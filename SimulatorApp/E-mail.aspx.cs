@@ -37,10 +37,4 @@ public partial class E_mail : System.Web.UI.Page
             Label2.Text = "Please upload a file!";
         }
     }
-
-    protected void Exit(object sender, EventArgs e)
-    {
-        System.Environment.Exit(0);
-
-    }
 }
