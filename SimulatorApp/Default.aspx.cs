@@ -19,6 +19,8 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        FileUpload.Attributes["onchange"] = "UploadFile(this)";
+
         if (!this.IsPostBack)
         {
             //userIP.displayIP(DataList1);
@@ -52,40 +54,47 @@ public partial class _Default : System.Web.UI.Page
             try
             {
                 string filename = Path.GetFileName(FileUpload.FileName);
+                string nameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
                 string extension = Path.GetExtension(filename);
 
-                // if (extension.ToLower() == ".json") {
-                string ip = "192.1.45.189";
-                string folderName = getFolderNameFromIp(ip);
-                string folderPath = Server.MapPath("Uploads");
-
-                //Checking if a directory for that user exists if not create one
-                if (!Directory.Exists(folderName))
+                if (extension.ToLower() == ".json")
                 {
-                    Directory.CreateDirectory(new Uri(folderPath + @"\" + folderName).LocalPath);
-                }
+                    string ip = "192.1.45.188";
+                    string folderName = getFolderNameFromIp(ip);
+                    string folderPath = Server.MapPath("Uploads");
 
-                string curFile = Server.MapPath("~/Uploads/" + folderName + "/") + filename;
-                bool state = File.Exists(curFile) ? true : false;
+                    //Checking if a directory for that user exists if not create one
+                    if (!Directory.Exists(folderName))
+                    {
+                        Directory.CreateDirectory(new Uri(folderPath + @"\" + folderName).LocalPath);
+                    }
 
-                if (state)
-                {
-                    string nameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
-                    string fileNum = Convert.ToString(copyNumber);
-                    string filecopy = string.Concat(nameWithoutExtension, "-Copy") + fileNum;
-                    FileUpload.SaveAs(Server.MapPath("~/Uploads/" + folderName + "/") + filecopy + extension);
-                    copyNumber++;
+                    string curFile = Server.MapPath("~/Uploads/" + folderName + "/") + filename;
+                    bool state = File.Exists(curFile) ? true : false;
+
+                    if (state)
+                    {
+                        string fileNum = Convert.ToString(copyNumber);
+                        string filecopy = string.Concat(nameWithoutExtension, "-Copy") + fileNum;
+                        //label.Text = filecopy;
+                        FileUpload.SaveAs(Server.MapPath("~/Uploads/" + folderName + "/") + filecopy + extension);
+                        //addUploadedFiles(nameWithoutExtension);
+                        copyNumber++;
+                    }
+                    else
+                    {
+                        FileUpload.SaveAs(Server.MapPath("~/Uploads/" + folderName + "/") + filename);
+                        //label.Text = filename;
+                        //addUploadedFiles(nameWithoutExtension);
+                    }
+                    //showUploadedFiles(this, e);
+
                 }
                 else
                 {
-                    FileUpload.SaveAs(Server.MapPath("~/Uploads/" + folderName + "/") + filename);
+                    //display message
                 }
             }
-            /**else
-            {
-                //display message
-            }
-        }**/
 
             catch (Exception ex)
             {

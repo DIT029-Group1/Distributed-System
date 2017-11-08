@@ -16,7 +16,7 @@
 
     <form id="form1" runat="server">
 
-        <asp:FileUpload ID="FileUploadControl" runat="server" />
+        <asp:FileUpload ID="FileUpload" runat="server" style="display:none" />
 		<asp:Button runat="server" ID="UploadButton" style="display:none" Text="Upload" OnClick="uploadFile" />
 
         <div class="header">SEQUENCE DIAGRAM SIMULATOR</div>
@@ -83,7 +83,13 @@
         <script type="text/javascript" src="js/parse.js"></script>
         <script src="js/simulator.js"></script>
         <script src="js/popUp.js"></script>
-
+        <script type="text/javascript">
+             function UploadFile(fileUpload) {
+                 if (fileUpload.value != '') {
+                     document.getElementById("<%=UploadButton.ClientID %>").click();
+                 }
+        }
+        </script>
     </form>
 
 </body>
