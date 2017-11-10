@@ -21,6 +21,11 @@
 
         <div class="header">SEQUENCE DIAGRAM SIMULATOR</div>
         <div class="left">
+            <div class="content3" id="uploads">Uploaded Files
+                <asp:Panel ID="pnlUploads" runat="server">
+
+                </asp:Panel>
+            </div>
             <div class="content1" id="mCount1"></div>
             <div class="content2" id="mCount2"></div>
             <div class="content3" id="nCount">Name of Nodes</div>

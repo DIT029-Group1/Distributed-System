@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -16,6 +17,7 @@ public partial class _Default : System.Web.UI.Page
     private UserIP userIP = new UserIP();
     private TcpToErlang t = null;
     private int copyNumber = 1;
+    private static ArrayList uploadedFiles = new ArrayList();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -59,7 +61,9 @@ public partial class _Default : System.Web.UI.Page
 
                 if (extension.ToLower() == ".json")
                 {
+                    //Users ip 
                     string ip = "192.1.45.188";
+                    //Create a folder name from the ip of the user
                     string folderName = getFolderNameFromIp(ip);
                     string folderPath = Server.MapPath("Uploads");
 
@@ -76,24 +80,23 @@ public partial class _Default : System.Web.UI.Page
                     {
                         string fileNum = Convert.ToString(copyNumber);
                         string filecopy = string.Concat(nameWithoutExtension, "-Copy") + fileNum;
-                        //label.Text = filecopy;
                         FileUpload.SaveAs(Server.MapPath("~/Uploads/" + folderName + "/") + filecopy + extension);
-                        //addUploadedFiles(nameWithoutExtension);
+                        addUploadedFiles(filecopy);
                         copyNumber++;
                     }
                     else
                     {
                         FileUpload.SaveAs(Server.MapPath("~/Uploads/" + folderName + "/") + filename);
-                        //label.Text = filename;
-                        //addUploadedFiles(nameWithoutExtension);
+                        addUploadedFiles(nameWithoutExtension);
                     }
-                    //showUploadedFiles(this, e);
+                    addToPanel(this, e);
 
                 }
                 else
                 {
                     //display message
                 }
+
             }
 
             catch (Exception ex)
@@ -102,6 +105,31 @@ public partial class _Default : System.Web.UI.Page
                 errorMsg += ex.Message;
                 throw new Exception(errorMsg);
             }
+        }
+    }
+    protected void addUploadedFiles(string fileName)
+    {
+        uploadedFiles.Add(fileName);
+    }
+
+
+    protected void addToPanel(object sender, EventArgs e)
+    {
+        foreach (string file in uploadedFiles)
+        {
+            Button btn = new Button();
+            btn.OnClientClick = "return false;";
+            btn.Width = 160;
+            btn.Text = file;
+            pnlUploads.Controls.Add(btn);
+        }
+    }
+
+    protected void removeAllControls(object sender, EventArgs e)
+    {
+        foreach (Control item in pnlUploads.Controls.OfType<Button>())
+        {
+            pnlUploads.Controls.Remove(item);
         }
     }
 
