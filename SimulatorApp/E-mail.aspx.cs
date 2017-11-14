@@ -12,8 +12,10 @@ public partial class E_mail : System.Web.UI.Page
 {
     protected void Send_Click(object sender, EventArgs e)
     {
-        MailMessage msg = new MailMessage();
-        msg.From = new MailAddress("dit029management@gmail.com");
+        MailMessage msg = new MailMessage
+        {
+            From = new MailAddress("dit029management@gmail.com")
+        };
         msg.To.Add(new MailAddress(TextEmail.Text));
         msg.Subject = "Sequence diagram's photo";
         String body = "Hi there, here's your file!"
@@ -26,9 +28,11 @@ public partial class E_mail : System.Web.UI.Page
         if (FileUpload.HasFile)
         {
             msg.Attachments.Add(new Attachment(FileUpload.PostedFile.InputStream, FileUpload.FileName));
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential("dit029management@gmail.com", "dit12345");
-            smtp.EnableSsl = true;
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("dit029management@gmail.com", "dit12345"),
+                EnableSsl = true
+            };
             smtp.Send(msg);
             Label2.Text = "The file has been sent!";
         }

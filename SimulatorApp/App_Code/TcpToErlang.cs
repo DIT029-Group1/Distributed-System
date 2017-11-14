@@ -12,7 +12,7 @@ public class TcpToErlang
     private byte[] sendData;
     private NetworkStream stream;
 
-    private string serverIp = "192.168.0.104";
+    private string serverIp = "192.168.1.161";
     private int port = 8080;
 
     public TcpToErlang()
