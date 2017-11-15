@@ -21,9 +21,10 @@ public class UserIP
         
     }
 
-    public string getIP()
+    private void storeIP()
     {
         string ipAddress = string.Empty;
+        string lastlogin = DateTime.Now.ToString();
         if (HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDER_FOR"] != null)
         {
             ipAddress = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"].ToString();
@@ -32,13 +33,6 @@ public class UserIP
         {
             ipAddress = HttpContext.Current.Request.UserHostAddress;
         }
-        return ipAddress;
-    }
-
-    private void storeIP()
-    {
-        string ipAddress = getIP();
-        string lastlogin = DateTime.Now.ToString();
 
         conn.Open();
         String sql = "INSERT INTO users (ip, lastlogin) SELECT '" + ipAddress + "', '" + lastlogin + "' WHERE NOT EXISTS (SELECT ip FROM users WHERE ip = '" + ipAddress + "')";

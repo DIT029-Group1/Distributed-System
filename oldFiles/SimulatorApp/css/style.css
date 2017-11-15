@@ -34,7 +34,6 @@ body {
     float: left;
     text-shadow: 2px 2px 4px #000000;
 }
-
 .content1, .content2, .content3 {
     border-radius: 25px;
     border: 2px solid #D3D3D3;
@@ -79,16 +78,16 @@ body {
 }
 
 .device {
-    margin: 1%;
-    width: 98%;
-    height: auto;
-    padding: 5px 5px 5px 5px;
-    border-radius: 25px;
-    border: 2px solid #D3D3D3;
-    color: #FFFFFF;
-    opacity: 0.9;
-    text-shadow: 2px 2px 4px #000000;
-}
+        margin: 1%;
+        width: 98%;
+        height: auto;
+        padding: 5px 5px 5px 5px;
+        border-radius: 25px;
+        border: 2px solid #D3D3D3;
+        color: #FFFFFF;
+        opacity: 0.9;
+        text-shadow: 2px 2px 4px #000000;
+    }
 
 .console {
     clear: both;

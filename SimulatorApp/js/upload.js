@@ -1,6 +1,5 @@
-
-    function UploadFile(fileUpload) {
-        if (fileUpload.value != '') {
-            document.getElementById("<%=UploadButton.ClientID %>").click();
-        }
-    }
+﻿function UploadFile(fileUpload) {
+	if (fileUpload.value != '') {
+		document.getElementById("<%=UploadButton.ClientID %>").click();
+	}
+}

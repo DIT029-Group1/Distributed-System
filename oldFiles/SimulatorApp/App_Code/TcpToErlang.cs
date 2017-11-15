@@ -12,8 +12,8 @@ public class TcpToErlang
     private byte[] sendData;
     private NetworkStream stream;
 
-    private string serverIp = "192.168.0.104";
-    private int port = 8081;
+    private string serverIp = "192.168.1.161";
+    private int port = 8080;
 
     public TcpToErlang()
     {
@@ -27,7 +27,6 @@ public class TcpToErlang
     {
         sendData = Encoding.ASCII.GetBytes(message);
         stream.Write(sendData, 0, sendData.Length);
-        System.Threading.Thread.Sleep(1000);
         stream.Close();
         client.Close();
     }
