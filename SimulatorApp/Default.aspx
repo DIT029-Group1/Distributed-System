@@ -49,7 +49,7 @@
                         <asp:DataList ID="DataList2" runat="server" RepeatDirection="Vertical" OnItemCommand="chooseFile">
                             <ItemTemplate>
                                 <asp:label ID="Label1" runat="server"><%# Eval("json") %></asp:label>
-                                <asp:Button Text="Choose" runat="server" />
+                                <asp:Button Text="Choose" runat="server" OnClientClick='<%# Eval("completeFilePath", "updateInfo(\"{0}\"); return false;") %>' />
                             </ItemTemplate>
                         </asp:DataList>
                     </ContentTemplate>
@@ -58,8 +58,7 @@
                     </Triggers>
                 </asp:UpdatePanel>
             </div>
-            <div class="content1" id="mCount1"></div>
-            <div class="content2" id="mCount2"></div>
+            <span id="mCount"></span>
             <div class="content3" id="nCount">Name of Nodes</div>    
         </div>
 

@@ -58,6 +58,7 @@ public class UploadFile
                     }
 
                     string curFile = System.Web.HttpContext.Current.Server.MapPath("~/Uploads/" + folderName + "/") + filename;
+                    string folderAndFile = "./Uploads/" + folderName + "/" + filename;
                     bool state = File.Exists(curFile) ? true : false;
 
                     if (state)
@@ -68,7 +69,7 @@ public class UploadFile
                         fileupload.SaveAs(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/" + folderName + "/") + filecopy + extension);
                         createNodejsServer(folderName + "/", filecopy, port);
 
-                        String sql = "INSERT INTO files(filePath, json, js, port) VALUES ('" + savedPath.ToString() + "/', '" + filecopy + ".json', '" + filecopy  + ".js', '" + port +"')";
+                        String sql = "INSERT INTO files(filePath, completeFilePath, json, js, port) VALUES ('" + savedPath.ToString() + "/', '" + folderAndFile + "', '" + filecopy + ".json', '" + filecopy  + ".js', '" + port +"')";
                         cmd = new MySqlCommand(sql, conn);
 
                         copyNumber++;
@@ -78,7 +79,7 @@ public class UploadFile
                         fileupload.SaveAs(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/" + folderName + "/") + filename);
                         createNodejsServer(folderName + "/", nameWithoutExtension, port);
 
-                        String sql = "INSERT INTO files(filePath, json, js, port) VALUES ('" + savedPath.ToString() + "', '" + nameWithoutExtension + ".json', '" + nameWithoutExtension + ".js', '" + port + "')";
+                        String sql = "INSERT INTO files(filePath, completeFilePath, json, js, port) VALUES ('" + savedPath.ToString() + "', '" + folderAndFile + "', '" + nameWithoutExtension + ".json', '" + nameWithoutExtension + ".js', '" + port + "')";
                         cmd = new MySqlCommand(sql, conn);
 
                     }
