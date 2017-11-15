@@ -23,6 +23,9 @@
     var seqCount = 0;
     var nodeCount = 0;
 
+    document.getElementById("mCount").innerHTML = "";
+
+
     for (i3 in pObj.diagram.content) {
         var msgCount = 0;
         seqCount++;
@@ -33,8 +36,10 @@
             nodeCount++;
 
         }
-        document.getElementById("mCount" + seqCount).innerHTML = pObj.diagram.content[i3].node + seqCount;
-        document.getElementById("mCount" + seqCount).innerHTML += "<br><span>Total Messages: " + msgCount + "</span>";
+
+        var seqhtml = "<div class='content1'>" + pObj.diagram.content[i3].node + seqCount + "<br><span>Total Messages: " + msgCount + "</span></div>";
+
+        document.getElementById("mCount").innerHTML += seqhtml;
     }
 
     updateCanvas(nodes, msgCount, nodeCount, seqCount, pObj);

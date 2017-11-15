@@ -32,8 +32,7 @@
 
                 </asp:UpdatePanel>
             </div>
-            <div class="content1" id="mCount1"></div>
-            <div class="content2" id="mCount2"></div>
+            <span id="mCount"></span>
             <div class="content3" id="nCount">Name of Nodes</div>
             
             
