@@ -1,11 +1,11 @@
-﻿function updateCanvas(nodes, msgCount, nodeCount, seqCount, pObj) {
+﻿function updateCanvas(nodes, msgCount, nodeCount, seqCount, pObj, pObj2, pObj3) {
 	var canvas = document.getElementById('SDCanvas');
 
 
 	//------------------- CANVAS -------------------
 	var height = (msgCount + nodeCount) * 50;
 	canvas.width = 200 * nodes.length + 200;
-	canvas.height = height + 400;
+	canvas.height = height * 3;
 
 	var c = canvas.getContext('2d');
 
@@ -53,6 +53,28 @@
 	c.stroke();
 
 	//--------------------- END ---------------------
+
+    //---------- Deployment & Class Diagram ---------
+
+    c.strokeRect(0, height + 355, 200 * nodes.length + 150, (height));
+    c.fillText("Class diagram", 10, height + 380);
+
+    c.fillRect(70 * pObj2.classes.length, height + 420, 200, 100);
+    c.fillStyle = "black";
+    c.fillText(pObj2.classes[0].name, 70 * pObj2.classes.length + 10, height + 450);
+    c.fillStyle = "white";
+
+    var xLoc = 10;
+
+    for (var i = 1; i < pObj2.classes.length; i++) {
+        c.fillRect(xLoc, height + 550, 200, 100);
+        c.fillStyle = "black";
+        c.fillText(pObj2.classes[i].name, xLoc + 10, height + 570);
+        c.fillStyle = "white";
+        xLoc += 270;
+    }
+
+    //--------------------- END ---------------------
 
 	//-------------------- NODES --------------------
 

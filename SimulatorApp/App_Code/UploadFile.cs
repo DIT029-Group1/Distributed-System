@@ -111,7 +111,7 @@ public class UploadFile
                 errorMsg += ex.Message;
                 throw new Exception(errorMsg);
             }
-        }
+        } 
     }
 
     public void displayFile(DataList datalist)

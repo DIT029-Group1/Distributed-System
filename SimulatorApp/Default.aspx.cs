@@ -15,7 +15,7 @@ using System.Web.UI.WebControls;
 public partial class _Default : System.Web.UI.Page
 {
     private UserIP userIP = new UserIP();
-    private TcpToErlang t = new TcpToErlang();
+    //private TcpToErlang t = new TcpToErlang();
     private UploadFile uf = new UploadFile();
 
     protected void Page_Load(object sender, EventArgs e)
@@ -29,7 +29,7 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Timer1_Tick(object sender, EventArgs e)
     {
-        userIP.displayIP(DataList1);
+        //userIP.displayIP(DataList1);
     }
 
     protected void Timer2_Tick(object sender, EventArgs e)
@@ -39,7 +39,7 @@ public partial class _Default : System.Web.UI.Page
 
     protected void start(object sender, EventArgs e)
     {
-        t.sendMessage("start,8080,C:\\inetpub\\wwwroot\\SimulatorApp\\Uploads\\228070144\\,listen.js,data.json");
+        //t.sendMessage("start,8080,C:\\inetpub\\wwwroot\\SimulatorApp\\Uploads\\228070144\\,listen.js,data.json");
     }
 
     protected void UploadFile(object sender, EventArgs e)

@@ -7,8 +7,10 @@
     oReq.send();
 
 
-    var json = oReq.responseText;
-    var pObj = JSON.parse(json);
+    var json = JSON.parse(oReq.responseText);
+    var pObj = json[0];
+    var pObj2 = json[1];
+    var pObj3 = json[2];
 
     document.getElementById("nCount").innerHTML = "Name of Nodes";
 
@@ -42,5 +44,5 @@
         document.getElementById("mCount").innerHTML += seqhtml;
     }
 
-    updateCanvas(nodes, msgCount, nodeCount, seqCount, pObj);
+    updateCanvas(nodes, msgCount, nodeCount, seqCount, pObj, pObj2, pObj3);
 }
