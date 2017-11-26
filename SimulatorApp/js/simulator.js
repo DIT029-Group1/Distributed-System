@@ -59,19 +59,107 @@
     c.strokeRect(0, height + 355, 200 * nodes.length + 150, (height));
     c.fillText("Class diagram", 10, height + 380);
 
-    c.fillRect(70 * pObj2.classes.length, height + 420, 200, 100);
-    c.fillStyle = "black";
-    c.fillText(pObj2.classes[0].name, 70 * pObj2.classes.length + 10, height + 450);
-    c.fillStyle = "white";
 
     var xLoc = 10;
+    var classLocsX = [];
 
-    for (var i = 1; i < pObj2.classes.length; i++) {
-        c.fillRect(xLoc, height + 550, 200, 100);
-        c.fillStyle = "black";
-        c.fillText(pObj2.classes[i].name, xLoc + 10, height + 570);
+    //Draw every class
+    for (var i = 0; i < pObj2.classes.length; i++) {
         c.fillStyle = "white";
-        xLoc += 270;
+        if (i == 0) {
+            //Draw the first class on the top
+            c.fillRect(70 * pObj2.classes.length, height + 420, 200, 100);
+            c.fillStyle = "black";
+            c.fillText(pObj2.classes[i].name, 70 * pObj2.classes.length + 10, height + 440);
+        } else {
+            c.fillRect(xLoc, height + 580, 200, 100);
+            c.fillStyle = "black";
+            c.fillText(pObj2.classes[i].name, xLoc + 10, height + 600);
+            classLocsX[i] = (xLoc - 100);
+        }
+
+        //Draw the fields of the class
+        var yLoc = height + 620;
+
+        for (var f = 0; f < pObj2.classes[i].fields.length; f++) {
+
+            if (i == 0) {
+                c.fillText(pObj2.classes[i].fields[f].name + " : " + pObj2.classes[i].fields[f].type, 70 * pObj2.classes.length + 10, height + 470);
+            } else {
+                c.fillText(pObj2.classes[i].fields[f].name + " : " + pObj2.classes[i].fields[f].type, xLoc + 10, yLoc);
+            }
+
+            yLoc += 20;
+        }
+
+        if (i != 0) {
+            xLoc += 270;
+        }
+    }
+
+    //Draw the inheritence
+    //First we loop through all the relationships
+    for (var h = 0; h < pObj2.relationships.length; h++) {
+
+        var tmpSuperClass = pObj2.relationships[h].superclass;
+        var tmpSubClass = pObj2.relationships[h].subclass;
+
+        var xFrom = 0;
+        var yFrom = 0;
+        var xTo = 0;
+        var yTo = 0;
+
+        //Then we store the location of each class that has a relationship
+        for (var i = 0; i < pObj2.classes.length; i++) {
+            if (pObj2.classes[i].name == tmpSuperClass) {
+                if (i == 0) {
+                    xFrom = (70 * pObj2.classes.length + 100);
+                    yFrom = height + 520;
+                } else {
+                    xFrom = classLocsX[i] + 200;
+                    yFrom = height + 580;
+                }
+            } else if (pObj2.classes[i].name == tmpSubClass) {
+                if (i == 0) {
+                    xTo = (70 * pObj2.classes.length + 100);
+                    yTo = height + 520;
+                } else {
+                    xTo = classLocsX[i] + 200;
+                    yTo = height + 580;
+                }
+            }
+        }
+
+        c.strokeStyle = "black";
+
+        //Draw arrow head
+
+        c.beginPath();
+
+        c.moveTo(xFrom, yFrom);
+        c.lineTo(xFrom + 10, yFrom + 10);
+        c.moveTo(xFrom, yFrom);
+        c.lineTo(xFrom - 10, yFrom + 10);
+        c.moveTo(xFrom - 10, yFrom + 10);
+        c.lineTo(xFrom + 10, yFrom + 10);
+        
+        //Draw arrow body
+        
+        switch (pObj2.relationships[h].type) {
+            case "inheritance":
+                c.setLineDash([]);
+                break;
+            case "realization":
+                c.setLineDash([3]);
+                break;
+
+            //TODO: Add more relationship types of arrows
+        }
+
+        c.moveTo(xFrom, yFrom + 10);
+        c.lineTo(xTo, yTo);
+
+        c.stroke();
     }
 
     //--------------------- END ---------------------
@@ -163,7 +251,7 @@
 
 						c.beginPath();
 						c.lineWidth = "5";
-						if (i === msgs.length - 1) { c.strokeStyle = "rgb(57,255,20"; }
+						if (i === msgs.length - 1) { c.strokeStyle = "rgb(57,255,20)"; }
 						else { c.strokeStyle = "white"; }
 
 						if (from < to) {

@@ -97,7 +97,13 @@
             },
             {
                 "name": "Gateway",
-                "fields": []
+                "fields": [{
+                    "name": "name",
+                    "type": "string"
+                }, {
+                    "name": "email",
+                    "type": "string"
+                }]
             },
             {
                 "name": "User",
