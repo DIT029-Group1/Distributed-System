@@ -6,11 +6,10 @@
     oReq.open("GET", fileName, false);
     oReq.send();
 
-
     var json = JSON.parse(oReq.responseText);
-    var pObj = json[0];
-    var pObj2 = json[1];
-    var pObj3 = json[2];
+    var pObj = json[0]; //Load the sequence diagram info
+    var pObj2 = json[1]; //Load the class diagram info
+    var pObj3 = json[2]; //Load the deployment diagram info
 
     document.getElementById("nCount").innerHTML = "Name of Nodes";
 
