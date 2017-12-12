@@ -1,2 +1,0 @@
-Click "{ImageFolder}/1510332172897.png"
-Click "{ImageFolder}/1510332251001.png"

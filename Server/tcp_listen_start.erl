@@ -33,5 +33,7 @@ handler(AS) ->
       osCMD:startNodejs(binary_to_list(Path), binary_to_list(JsFile)),
       timer:sleep(500),
       parsing:parseJson(list_to_integer(binary_to_list(Port)), binary_to_list(Path) ++ binary_to_list(JsonFile)),
+	  timer:sleep(2000),
+	  os:cmd("taskkill /T /F /IM cmd.exe /IM node.exe"),
       handler(AS)
   end.
