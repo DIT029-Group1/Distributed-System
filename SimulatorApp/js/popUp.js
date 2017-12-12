@@ -1,4 +1,8 @@
-﻿function popUp(url) {
+﻿/*
+@author Yazan Alsahhar
+A code which is responsible for popping up the send's window 
+*/
+function popUp(url) {
 	var width = 600;
 	var height = 300;
 	var left = (screen.width - width) / 2;

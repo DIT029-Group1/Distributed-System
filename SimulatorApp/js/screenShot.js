@@ -1,4 +1,8 @@
-﻿function screenShot() {
+﻿/*
+@author Yazan Alsahhar.
+A code which is responsible for taking  screenshot of the simulated diagram. 
+*/
+function screenShot() {
 	html2canvas(document.getElementById("SDCanvas"), {
 		onrendered: function (canvas) {
 			var link = document.createElement("a");

@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="E-mail.aspx.cs" Inherits="E_mail" %>
+﻿<%-- @author Yazan Alsahhar --%>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="E-mail.aspx.cs" Inherits="E_mail" %>
 
 <!DOCTYPE html>
 
