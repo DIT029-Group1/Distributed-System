@@ -26,6 +26,8 @@ public class UploadFile
         //
     }
 
+    // Martin
+
     public void uploadFile(FileUpload fileupload)
     {
         conn.Open();
@@ -41,7 +43,7 @@ public class UploadFile
                 string filename = Path.GetFileName(fileupload.FileName);
                 string nameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
                 string extension = Path.GetExtension(filename);
-                
+
                 if (extension.ToLower() == ".json")
                 {
 
@@ -49,7 +51,7 @@ public class UploadFile
                     string folderName = userIP.GetHashCode().ToString();
                     string folderPath = System.Web.HttpContext.Current.Server.MapPath("Uploads");
 
-                    string savedPath = "C:/inetpub/wwwroot/SimulatorApp/Uploads/" + folderName;
+                    string savedPath = "C:/inetpub/wwwroot/SimulatorApp/Uploads/" + folderName + "/";
 
                     //Checking if a directory for that user exists if not create one
                     if (!Directory.Exists(folderName))
@@ -69,7 +71,7 @@ public class UploadFile
                         fileupload.SaveAs(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/" + folderName + "/") + filecopy + extension);
                         createNodejsServer(folderName + "/", filecopy, port);
 
-                        String sql = "INSERT INTO files(filePath, completeFilePath, json, js, port) VALUES ('" + savedPath.ToString() + "/', '" + folderAndFile + "', '" + filecopy + ".json', '" + filecopy  + ".js', '" + port +"')";
+                        String sql = "INSERT INTO files(filePath, completeFilePath, json, js, port) VALUES ('" + savedPath.ToString() + "', '" + folderAndFile + "', '" + filecopy + ".json', '" + filecopy + ".js', '" + port + "')";
                         cmd = new MySqlCommand(sql, conn);
 
                         copyNumber++;
@@ -111,9 +113,11 @@ public class UploadFile
                 errorMsg += ex.Message;
                 throw new Exception(errorMsg);
             }
-        } 
+        }
     }
 
+    // Murat
+    
     public void displayFile(DataList datalist)
     {
         DataTable dt = new DataTable();
@@ -128,6 +132,8 @@ public class UploadFile
 
         conn.Close();
     }
+
+    // Murat
 
     protected void createNodejsServer(string path, string file, int Port)
     {
@@ -148,6 +154,8 @@ public class UploadFile
                 "res.end();}).listen(" + Port + ");");
         }
     }
+
+    // Murat
 
     public string getSingelValue(string column, string table, string other)
     {

@@ -1,11 +1,13 @@
-﻿function updateCanvas(nodes, msgCount, nodeCount, seqCount, pObj, pObj2, pObj3) {
+﻿// author: Murat
+
+function updateCanvas(port, nodes, msgCount, nodeCount, seqCount, pObj/*, pObj2, pObj3*/) {
 	var canvas = document.getElementById('SDCanvas');
 
 
 	//------------------- CANVAS -------------------
 	var height = (msgCount + nodeCount) * 50;
 	canvas.width = 200 * nodes.length + 200;
-	canvas.height = height * 3;
+	canvas.height = height + 400;
 
 	var c = canvas.getContext('2d');
 
@@ -31,8 +33,8 @@
 	// status
 	c.beginPath();
 	c.setLineDash([5]);
-	c.moveTo(50, height + 30);
-	c.lineTo(200 * nodes.length + 50, height + 30);
+	c.moveTo(50, height - (msgCount - seqCount) * 50 + 30);
+	c.lineTo(200 * nodes.length + 50, height - (msgCount - seqCount) * 50 + 30);
 	c.stroke();
 
 	// diagram names boundary
@@ -53,7 +55,7 @@
 	c.stroke();
 
 	//--------------------- END ---------------------
-
+/*
     //---------- Deployment & Class Diagram ---------
 
     c.strokeRect(0, height + 355, 200 * nodes.length + 150, (height));
@@ -163,7 +165,7 @@
     }
 
     //--------------------- END ---------------------
-
+*/
 	//-------------------- NODES --------------------
 
 	var Dx = 0;
@@ -194,10 +196,9 @@
 
 		//------------------- MESSAGES ------------------
 		var Dy = 230;
-		var tmpDy = height + 80;
+		var tmpDy = height - (msgCount - seqCount) * 50 + 80;
 		var msgs = [],
-			url = "http://192.168.0.104:8080";
-
+			url = "http://192.168.0.104:" + port;
 		var xhr = new XMLHttpRequest();
 
 		xhr.open('GET', url, true);
@@ -251,7 +252,7 @@
 
 						c.beginPath();
 						c.lineWidth = "5";
-						if (i === msgs.length - 1) { c.strokeStyle = "rgb(57,255,20)"; }
+						if (i === msgs.length - 1) { c.strokeStyle = "rgb(57,255,20"; }
 						else { c.strokeStyle = "white"; }
 
 						if (from < to) {

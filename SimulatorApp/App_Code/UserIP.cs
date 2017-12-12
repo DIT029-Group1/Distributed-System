@@ -21,6 +21,8 @@ public class UserIP
         
     }
 
+    // Murat
+
     public string getIP()
     {
         string ipAddress = string.Empty;
@@ -35,9 +37,11 @@ public class UserIP
         return ipAddress;
     }
 
+    // Murat
+
     private void storeIP()
     {
-        string ipAddress = getIP();
+        string ipAddress = "User" + getIP().GetHashCode().ToString();
         string lastlogin = DateTime.Now.ToString();
 
         conn.Open();
@@ -59,6 +63,8 @@ public class UserIP
             conn.Close();
         }
     }
+
+    // Murat
 
     public void displayIP(DataList datalist)
     {
