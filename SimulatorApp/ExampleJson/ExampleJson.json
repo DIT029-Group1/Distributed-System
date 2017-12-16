@@ -4,82 +4,73 @@
             "format": "DIT029 format",
             "version": "1.0",
             "extensions": []
-	    },
-	    "type": "sequence_diagram ",
-	    "processes": [{
-			"class": "Gateway",
-			"name": "g"
-		},
-		{
-			"class": "User",
-			"name": "u1"
-		},
-		{
-			"class": "User",
-			"name": "u2"
-		},
-		{
-			"class": "User",
-			"name": "u3"
-		},
-		{
-			"class": "User",
-			"name": "u4"
-		},
-		{
-			"class": "User",
-			"name": "u5"
-		}
-	    ],
-	    "diagram": {
-		    "node": "par",
-		    "content": [{
-				"node": "seq",
-				"content": [{
-						"node": "send",
-						"from": "u1",
-						"to": "g",
-						"message": ["fwd", "u2", "msg1"]
-					},
-					{
-						"node": "send",
-						"from": "u3",
-						"to": "g",
-						"message": ["fwd", "u1", "msg2"]
-					},
-					{
-						"node": "send",
-						"from": "g",
-						"to": "u2",
-						"message": ["fwd",
-							"u2", "msg1"
-						]
-					},
-					{
-						"node": "send",
-						"from": "g",
-						"to": "u1",
-						"message": ["fwd", "u1", "msg2"]
-					}
-				]
-			},
-			{
-				"node": "seq",
-				"content": [{
-						"node": "send ",
-						"from": "u3",
-						"to": "g",
-						"message": ["status"]
-					},
-					{
-						"node ": "send ",
-						"from": "g",
-						"to": "u3",
-						"message": ["ok"]
-					}
-				]
-			}
-		    ]
+      },
+      "type": "sequence_diagram ",
+      "processes": [{
+      "class": "Gateway",
+      "name": "g"
+    },
+    {
+      "class": "User",
+      "name": "u1"
+    },
+    {
+      "class": "User",
+      "name": "u2"
+    },
+    {
+      "class": "User",
+      "name": "u3"
+    }
+      ],
+      "diagram": {
+        "node": "par",
+        "content": [{
+        "node": "seq",
+        "content": [{
+            "node": "send",
+            "from": "u1",
+            "to": "u2",
+            "message": ["fwd", "u2", "msg1"]
+          },
+          {
+            "node": "send",
+            "from": "u2",
+            "to": "u3",
+            "message": ["fwd", "u3", "msg2"]
+          },
+          {
+            "node": "send",
+            "from": "u3",
+            "to": "g",
+            "message": ["fwd", "g", "msg1"
+            ]
+          },
+          {
+            "node": "send",
+            "from": "g",
+            "to": "u1",
+            "message": ["fwd", "u1", "msg2"]
+          }
+        ]
+      },
+      {
+        "node": "seq",
+        "content": [{
+            "node": "send ",
+            "from": "u3",
+            "to": "g",
+            "message": ["status"]
+          },
+          {
+            "node ": "send ",
+            "from": "g",
+            "to": "u3",
+            "message": ["ok"]
+          }
+        ]
+      }
+        ]
         }
     },{
         "meta ": {
@@ -97,6 +88,10 @@
             },
             {
                 "name": "Gateway",
+                "fields": []
+            },
+            {
+                "name": "Test",
                 "fields": []
             },
             {
@@ -142,14 +137,6 @@
             },
             {
                 "process": "u3",
-                "device": "desktop_computer1"
-            },
-            {
-                "process": "u4",
-                "device": "desktop_computer1"
-            },
-            {
-                "process": "u5",
                 "device": "desktop_computer1"
             }
         ]

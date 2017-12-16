@@ -13,10 +13,12 @@
 -export([parseJson/2]).
 
 parseJson(Port, JsonFile) ->
+  % opening and decoding json file
   {ok, File} = file:open(JsonFile,[read]),
   {ok, Txt} = file:read(File,1024 * 1024),
-  {JsonObj}=jiffy:decode(Txt),
-  {Diagram} = proplists:get_value(<<"diagram">>, JsonObj),
+  JsonObj = jiffy:decode(Txt),
+  [{Seq}|_] = JsonObj,
+  {Diagram} = proplists:get_value(<<"diagram">>, Seq),
   Node = proplists:get_value(<<"content">>, Diagram),
   [{H}|[{T}|_]] = Node,
 
@@ -29,9 +31,11 @@ parseJson(Port, JsonFile) ->
 
   OriginalDiagram = messages(FirstDiagram, <<"">>),
   ParDiagram = messages(SecondDiagram, <<"par, ">>),
-  send(merge(OriginalDiagram, ParDiagram),S).
+  send(merge(OriginalDiagram, ParDiagram),S),
+  % stopping smulation after all msgs are sent
+  os:cmd("taskkill /T /F /IM cmd.exe /IM node.exe"), ok.
 
-% parsing json to get messages, and parallell flags as "par"
+% parsing json to get messages, and parallel flags as "par"
 messages([], _P) -> [];
 messages([{X}|Xs], P) ->
   From = [P, proplists:get_value(<<"from">>, X), <<", ">>],
@@ -53,6 +57,7 @@ send([], _S) -> ok;
 send([H|T], S) ->
 
   if
+  % checking if 2. element has <<"par, ">> binary
     hd(hd(hd(hd(T)))) =:= <<"par, ">> ->
       gen_tcp:send(S, H),
       timer:sleep(100),

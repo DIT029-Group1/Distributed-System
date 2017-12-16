@@ -1,13 +1,12 @@
 ﻿// author: Murat
 
-function updateCanvas(port, nodes, msgCount, nodeCount, seqCount, pObj/*, pObj2, pObj3*/) {
+function updateCanvas(port, nodes, msgCount, nodeCount, seqCount, pObj, pObj2, pObj3) {
 	var canvas = document.getElementById('SDCanvas');
 
-
 	//------------------- CANVAS -------------------
-	var height = (msgCount + nodeCount) * 50;
+	var height = nodeCount * 50 + 100;
 	canvas.width = 200 * nodes.length + 200;
-	canvas.height = height + 400;
+	canvas.height = height * 3;
 
 	var c = canvas.getContext('2d');
 
@@ -55,140 +54,137 @@ function updateCanvas(port, nodes, msgCount, nodeCount, seqCount, pObj/*, pObj2,
 	c.stroke();
 
 	//--------------------- END ---------------------
-/*
-    //---------- Deployment & Class Diagram ---------
 
-    c.strokeRect(0, height + 355, 200 * nodes.length + 150, (height));
-    c.fillText("Class diagram", 10, height + 380);
-
-
-    var xLoc = 10;
-    var classLocsX = [];
-
-    //Draw every class
-    for (var i = 0; i < pObj2.classes.length; i++) {
-        c.fillStyle = "white";
-        if (i == 0) {
-            //Draw the first class on the top
-            c.fillRect(70 * pObj2.classes.length, height + 420, 200, 100);
-            c.fillStyle = "black";
-            c.fillText(pObj2.classes[i].name, 70 * pObj2.classes.length + 10, height + 440);
-        } else {
-            c.fillRect(xLoc, height + 580, 200, 100);
-            c.fillStyle = "black";
-            c.fillText(pObj2.classes[i].name, xLoc + 10, height + 600);
-            classLocsX[i] = (xLoc - 100);
-        }
-
-        //Draw the fields of the class
-        var yLoc = height + 620;
-
-        for (var f = 0; f < pObj2.classes[i].fields.length; f++) {
-
-            if (i == 0) {
-                c.fillText(pObj2.classes[i].fields[f].name + " : " + pObj2.classes[i].fields[f].type, 70 * pObj2.classes.length + 10, height + 470);
-            } else {
-                c.fillText(pObj2.classes[i].fields[f].name + " : " + pObj2.classes[i].fields[f].type, xLoc + 10, yLoc);
-            }
-
-            yLoc += 20;
-        }
-
-        if (i != 0) {
-            xLoc += 270;
-        }
-    }
-
-    //Draw the inheritence
-    //First we loop through all the relationships
-    for (var h = 0; h < pObj2.relationships.length; h++) {
-
-        var tmpSuperClass = pObj2.relationships[h].superclass;
-        var tmpSubClass = pObj2.relationships[h].subclass;
-
-        var xFrom = 0;
-        var yFrom = 0;
-        var xTo = 0;
-        var yTo = 0;
-
-        //Then we store the location of each class that has a relationship
-        for (var i = 0; i < pObj2.classes.length; i++) {
-            if (pObj2.classes[i].name == tmpSuperClass) {
-                if (i == 0) {
-                    xFrom = (70 * pObj2.classes.length + 100);
-                    yFrom = height + 520;
-                } else {
-                    xFrom = classLocsX[i] + 200;
-                    yFrom = height + 580;
-                }
-            } else if (pObj2.classes[i].name == tmpSubClass) {
-                if (i == 0) {
-                    xTo = (70 * pObj2.classes.length + 100);
-                    yTo = height + 520;
-                } else {
-                    xTo = classLocsX[i] + 200;
-                    yTo = height + 580;
-                }
-            }
-        }
-
-        c.strokeStyle = "black";
-
-        //Draw arrow head
-
-        c.beginPath();
-
-        c.moveTo(xFrom, yFrom);
-        c.lineTo(xFrom + 10, yFrom + 10);
-        c.moveTo(xFrom, yFrom);
-        c.lineTo(xFrom - 10, yFrom + 10);
-        c.moveTo(xFrom - 10, yFrom + 10);
-        c.lineTo(xFrom + 10, yFrom + 10);
-        
-        //Draw arrow body
-        
-        switch (pObj2.relationships[h].type) {
-            case "inheritance":
-                c.setLineDash([]);
-                break;
-            case "realization":
-                c.setLineDash([3]);
-                break;
-
-            //TODO: Add more relationship types of arrows
-        }
-
-        c.moveTo(xFrom, yFrom + 10);
-        c.lineTo(xTo, yTo);
-
-        c.stroke();
-    }
-
-    //--------------------- END ---------------------
-*/
 	//-------------------- NODES --------------------
 
 	var Dx = 0;
 
-	// save node name and x coordinate for messages
+	// for saving node name and x coordinate for messages
 	var nodePosX = [];
 
-	c.strokeStyle;
-
 	for (var i = 0; i < nodes.length; i++) {
+		//lifeline
 		c.fillStyle = "rgb(140, 205, 241)";
-		c.fillRect(130 + Dx, 100, nodes[i].length * 15, 50);
+		c.fillRect(130 + Dx, 100, (nodes[i].name.length + nodes[i].class.length + 1) * 15, 50);
 		c.fillRect(180 + Dx, 150, 10, height + 70);
 		c.fillStyle = "white";
-		c.fillText(nodes[i], 155 + Dx, 130);
+		c.fillText(nodes[i].name + ":" + nodes[i].class, 155 + Dx, 130);
 		Dx += 180;
-		nodePosX.push({ name: nodes[i].split(':')[0], x: Dx });
-		c.stroke();
+		nodePosX.push({ name: nodes[i].name, x: Dx, csName: nodes[i].class });
 	}
-
 
 	//--------------------- END ---------------------
 
+	//---------- Deployment & Class Diagram ---------
+	// Samer
+	var classObject = [];
+
+	c.strokeRect(0, height + 355, 200 * nodes.length + 150, (height));
+	c.fillText("Class diagram", 10, height + 380);
+	var xLoc = 10;
+	var classLocsX = [];
+	//Draw every class
+	for (var i = 0; i < pObj2.classes.length; i++) {
+		if (i == 0) {
+			//Draw the first class on the top
+			c.fillStyle = "rgb(140, 205, 241)";
+			c.fillRect(70 * pObj2.classes.length, height + 420, 250, 100);
+			c.fillStyle = "white";
+			c.fillText(pObj2.classes[i].name, 70 * pObj2.classes.length + 10, height + 440);
+			classObject.push({
+				name: pObj2.classes[i].name,
+				x: 70 * pObj2.classes.length,
+				y: height + 420,
+				width: 250,
+				height: 100
+			});
+		} else {
+			c.fillStyle = "rgb(140, 205, 241)";
+			c.fillRect(xLoc, height + 580, 200, 100);
+			c.fillStyle = "white";
+			c.fillText(pObj2.classes[i].name, xLoc + 10, height + 600);
+			classObject.push({
+				name: pObj2.classes[i].name,
+				x: xLoc,
+				y: height + 580,
+				width: 200,
+				height: 100
+			});
+			classLocsX[i] = (xLoc - 100);
+		}
+
+		//Draw the fields of the class
+		var yLoc = height + 620;
+		for (var f = 0; f < pObj2.classes[i].fields.length; f++) {
+			if (i == 0) {
+				c.fillText(pObj2.classes[i].fields[f].name + " : " + pObj2.classes[i].fields[f].type, 70 * pObj2.classes.length + 10, height + 470);
+			} else {
+				c.fillText(pObj2.classes[i].fields[f].name + " : " + pObj2.classes[i].fields[f].type, xLoc + 10, yLoc);
+			}
+			yLoc += 20;
+		}
+		if (i != 0) {
+			xLoc += 270;
+		}
+	}
+	//Draw the inheritence
+	//First we loop through all the relationships
+	for (var h = 0; h < pObj2.relationships.length; h++) {
+		var tmpSuperClass = pObj2.relationships[h].superclass;
+		var tmpSubClass = pObj2.relationships[h].subclass;
+		var xFrom = 0;
+		var yFrom = 0;
+		var xTo = 0;
+		var yTo = 0;
+		//Then we store the location of each class that has a relationship
+		for (var i = 0; i < pObj2.classes.length; i++) {
+			if (pObj2.classes[i].name == tmpSuperClass) {
+				if (i == 0) {
+					xFrom = (70 * pObj2.classes.length + 100);
+					yFrom = height + 520;
+				} else {
+					xFrom = classLocsX[i] + 200;
+					yFrom = height + 580;
+				}
+			} else if (pObj2.classes[i].name == tmpSubClass) {
+				if (i == 0) {
+					xTo = (70 * pObj2.classes.length + 100);
+					yTo = height + 520;
+				} else {
+					xTo = classLocsX[i] + 200;
+					yTo = height + 580;
+				}
+			}
+		}
+		c.strokeStyle = "white";
+		//Draw arrow head
+		c.lineWidth = 2;
+		c.beginPath();
+		c.moveTo(xFrom, yFrom);
+		c.lineTo(xFrom + 10, yFrom + 10);
+		c.moveTo(xFrom, yFrom);
+		c.lineTo(xFrom - 10, yFrom + 10);
+		c.moveTo(xFrom - 10, yFrom + 10);
+		c.lineTo(xFrom + 10, yFrom + 10);
+
+		//Draw arrow body
+
+		switch (pObj2.relationships[h].type) {
+			case "inheritance":
+				c.setLineDash([]);
+				break;
+			case "realization":
+				c.setLineDash([3]);
+				break;
+			//TODO: Add more relationship types of arrows
+		}
+		c.moveTo(xFrom, yFrom + 10);
+		c.lineTo(xTo, yTo);
+		c.stroke();
+	}
+	//--------------------- END ---------------------
+
+	// Murat
 	//------------------- ANIMATE -------------------
 
 	function animate() {
@@ -216,7 +212,6 @@ function updateCanvas(port, nodes, msgCount, nodeCount, seqCount, pObj/*, pObj2,
 
 					for (var i = 1; i < msgs.length; i++) {
 						var element = msgs[i].split(', ');
-						var msg = msgs[i];
 						var from = 0;
 						var to = 0;
 
@@ -252,9 +247,44 @@ function updateCanvas(port, nodes, msgCount, nodeCount, seqCount, pObj/*, pObj2,
 
 						c.beginPath();
 						c.lineWidth = "5";
-						if (i === msgs.length - 1) { c.strokeStyle = "rgb(57,255,20"; }
-						else { c.strokeStyle = "white"; }
 
+						// highlighting class diagram
+						if (i === msgs.length - 1 ) {
+							c.strokeStyle = "rgb(57,255,20)";
+
+							if (element[0] !== "par") {
+								for (var m = 0; m < nodePosX.length; m++) {
+									if (element[1] == nodePosX[m].name) {
+										for (var mk = 0; mk < classObject.length; mk++) {
+											if (classObject[mk].name == nodePosX[m].csName) {
+												c.strokeStyle = "rgb(57,255,20)";
+												c.rect(classObject[mk].x, classObject[mk].y, classObject[mk].width, classObject[mk].height);
+												c.stroke();
+											}
+										}
+									}
+								}
+							}
+
+						} else {
+							c.strokeStyle = "white";
+
+							if (element[0] !== "par") {
+								for (var m = 0; m < nodePosX.length; m++) {
+									if (element[1] !== nodePosX[m].name) {
+										for (var mk = 0; mk < classObject.length; mk++) {
+											if (classObject[mk].name !== nodePosX[m].csName) {
+												c.strokeStyle = "white";
+												c.rect(classObject[mk].x, classObject[mk].y, classObject[mk].width, classObject[mk].height);
+												c.stroke();
+											}
+										}
+									}
+								}
+							}
+
+						}
+						//msg to right
 						if (from < to) {
 							if (element[0] === "par") {
 								c.moveTo(from + 10, tmpDy);
@@ -271,6 +301,7 @@ function updateCanvas(port, nodes, msgCount, nodeCount, seqCount, pObj/*, pObj2,
 								c.lineTo(to - 5, Dy);
 							}
 						}
+						//msg to left
 						else if (from > to) {
 							if (element[0] === "par") {
 								c.moveTo(from, tmpDy);
@@ -286,6 +317,7 @@ function updateCanvas(port, nodes, msgCount, nodeCount, seqCount, pObj/*, pObj2,
 								c.lineTo(to + 15, Dy);
 							}
 						}
+							// self msgs
 						else {
 							if (element[0] === "par") {
 								c.beginPath();
@@ -316,6 +348,7 @@ function updateCanvas(port, nodes, msgCount, nodeCount, seqCount, pObj/*, pObj2,
 						} else {
 							Dy += 50;
 						}
+
 						//--------------------- END ---------------------
 
 					}

@@ -11,7 +11,8 @@
 
 %% API
 -export([start/0, startNodejs/2]).
-
+% idea with this module was controlling nodejs server
+% by opening and shutting down shell windows
 start() ->
 	case whereis(sts) of
 		undefined ->
@@ -32,7 +33,6 @@ loop() ->
 			loop()
 	end.
 	
-% working on this
 startNodejs(Path, JsFile) ->
 	killNodejs(),
 	sts ! {startNodejs, Path, JsFile, self()},
@@ -40,8 +40,6 @@ startNodejs(Path, JsFile) ->
 		{startNodejs_reply, Msg} -> Msg
 	end.
 
-% temporary module to kill all os cmd process
-% working on this
 killNodejs() ->
 	os:cmd("taskkill /T /F /IM cmd.exe /IM node.exe"), ok.
 	
