@@ -1,4 +1,5 @@
-﻿@import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+/* Created by Yazan , modifications by Martin Chukaleski */
+@import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
 
 
 * {
@@ -133,6 +134,7 @@ li {
 }
 
 
+/* Navigation Button Animations by Martin Chukaleski*/
 
 .upload {
     width: 120px;
